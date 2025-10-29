@@ -35,4 +35,22 @@ def add_expense():
         writer.writerow([date, category, amount, description])
 
     messagebox.showinfo("Success", "Expense recorded successfully!")
+    category_entry.delete(0, tk.END)
+    amount_entry.delete(0, tk.END)
+    description_entry.delete(0, tk.END)
+    view_expenses()
+
+
+def view_expenses():
+    for row in tree.get_children():
+        tree.delete(row)
     
+    try:
+        with open(Filename, 'r') as file:
+            reader = csv.reader(file)
+            next(reader)
+            for row in reader:
+                tree.insert("", tk.END, values=row)
+    except FileNotFoundError:
+        pass
+
