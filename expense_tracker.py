@@ -54,3 +54,35 @@ def view_expenses():
     except FileNotFoundError:
         pass
 
+initialize_file()
+
+root = tk.Tk()
+root.title("Expense Tracker")
+
+frame = tk.Frame(root)
+frame.pack(pady=10)
+
+tk.Label(frame, text="Category:").grid(row=0, column=0)
+category_entry = tk.Entry(frame)
+category_entry.grid(row=0, column=1)
+
+tk.Label(frame, text="Amount:").grid(row=1, column=0)
+amount_entry = tk.Entry(frame)
+amount_entry.grid(row=1, column=1)
+
+tk.Label(frame, text="Description:").grid(row=2, column=0)
+description_entry = tk.Entry(frame)
+description_entry.grid(row=2, column=1)
+
+tk.Button(frame, text="Add Expense", command=add_expense).grid(row=3, column=0, columnspan=2, pady=10)
+
+tree = ttk.Treeview(root, columns=("Date", "Category", "Amount", "Description"), show="headings")
+tree.heading("Date", text="Date")
+tree.heading("Category", text="Category")
+tree.heading("Amount", text="Amount")
+tree.heading("Description", text="Description")
+tree.pack(pady=10)
+
+view_expenses()
+
+root.mainloop()
